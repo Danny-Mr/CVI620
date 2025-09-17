@@ -1,6 +1,11 @@
-// src/logger.js
-const options = { level: process.env.LOG_LEVEL || 'info' };
-if (options.level === 'debug') {
-  options.transport = { target: 'pino-pretty', options: { colorize: true } };
-}
-module.exports = require('pino')(options);
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+  ],
+});
+
+module.exports = logger;
